@@ -36,6 +36,12 @@ export class ApiService {
     return this.http.delete<any>(`${this.apiUrl}/${Module}${this.accionValor(Accion)}/${id}`);
   }
 
+  patchItem(Module: string, id: number, Accion: string, data: any = {}): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/${Module}/${id}${this.accionValor(Accion)}`, data);
+  }
+
+  
+  
   accionValor(Accion: string){
     return Accion != '' ? `/${Accion}`: '';
   }
