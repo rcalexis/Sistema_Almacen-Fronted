@@ -1,1 +1,52 @@
-<p>login works!</p>
+<div class="login-container">
+
+  <div class="login-card">
+
+    <div class="login-header">
+      <div class="icon-wrapper">
+        <i class="pi pi-user"></i>
+      </div>
+      <h2>Bienvenido</h2>
+      <p>Inicia sesion para continuar</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+
+      <div class="p-float-label">
+        <input pInputText
+               id="correo"
+               type="email"
+               formControlName="correo"
+               class="w-full"
+               [ngClass]="{'ng-invalid ng-dirty': loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched}" />
+        <label for="correo">Correo Electronico</label>
+      </div>
+      <small *ngIf="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched" class="p-error text-xs -mt-3 mb-3 block">
+        Introduce un correo valido.
+      </small>
+
+      <div class="p-float-label">
+        <input pInputText
+               id="contrasena"
+               type="password"
+               formControlName="contrasena"
+               class="w-full"
+               [ngClass]="{'ng-invalid ng-dirty': loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched}" />
+        <label for="contrasena">Contraseña</label>
+      </div>
+      <small *ngIf="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched" class="p-error text-xs -mt-3 mb-3 block">
+        La contraseña es obligatoria.
+      </small>
+
+      <div *ngIf="loginError" class="p-3 my-2 text-center text-white bg-red-500 rounded-lg text-sm">
+        {{ loginError }}
+      </div>
+
+      <button pButton
+              type="submit"
+              label="Ingresar"
+              class="login-button w-full"
+              [disabled]="loginForm.invalid"></button>
+    </form>
+  </div>
+</div>

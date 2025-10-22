@@ -1,0 +1,103 @@
+/* Importamos la fuente que usaremos para un look más limpio */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Estilo para el contenedor principal de la página */
+:host {
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  /* Fondo degradado vibrante */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* La tarjeta de login con el efecto "Glassmorphism" */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+  backdrop-filter: blur(15px);           /* El efecto de desenfoque del fondo */
+  -webkit-backdrop-filter: blur(15px);  /* Compatibilidad con Safari */
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Encabezado dentro de la tarjeta */
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.login-header .icon-wrapper {
+  margin: 0 auto 1rem auto;
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem; /* Tamaño del icono pi-user */
+}
+
+.login-header h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.login-header p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+/* Espaciado del formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Estilos para los inputs de PrimeNG para que encajen con el diseño */
+/* Es necesario usar ::ng-deep para acceder a los estilos internos de los componentes de PrimeNG */
+:host ::ng-deep .p-inputtext {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .p-inputtext:focus {
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Estilos para las etiquetas flotantes */
+:host ::ng-deep .p-float-label label {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Estilo personalizado para el botón principal */
+.login-button {
+  background: linear-gradient(90deg, #89f7fe 0%, #66a6ff 100%) !important;
+  color: #1e3a8a !important; /* Un azul oscuro para el texto del botón */
+  font-weight: 600 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 0.9rem !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 166, 255, 0.4);
+}
+
+.login-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(102, 166, 255, 0.6);
+}
