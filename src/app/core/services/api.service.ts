@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -11,9 +11,15 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getItems(Module: string, Accion: string = ''): Observable<any[]> {
-    let AccionValor = Accion != '' ? `/${Accion}`:'';
-    return this.http.get<any[]>(`${this.apiUrl}/${Module}${this.accionValor(Accion)}`);
+  // getItems(Module: string, Accion: string = ''): Observable<any[]> {
+  //   let AccionValor = Accion != '' ? `/${Accion}`:'';
+  //   return this.http.get<any[]>(`${this.apiUrl}/${Module}${this.accionValor(Accion)}`);
+  // }
+
+  getItems(Module: string, Accion: string = '', params: any = {}): Observable<any[]> {
+    const AccionValor = Accion !== '' ? `/${Accion}` : '';
+    const httpParams = new HttpParams({ fromObject: params });
+    return this.http.get<any[]>(`${this.apiUrl}/${Module}${AccionValor}`, { params: httpParams });
   }
 
   getItem(Module: string, id: number, Accion: string = ''): Observable<any> {
