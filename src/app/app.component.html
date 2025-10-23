@@ -1,6 +1,7 @@
-<div class="card flex justify-center">
-    <p-button label="Check" />
+<div class="min-h-screen bg-gray-50">
+ 
+  <app-navbar *ngIf="showNavbar"></app-navbar>
+  <main [class]="showNavbar ? 'container mx-auto px-4 py-6' : ''">
+    <router-outlet></router-outlet>
+  </main>
 </div>
-
-
-<router-outlet></router-outlet>
