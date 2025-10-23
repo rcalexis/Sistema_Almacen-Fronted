@@ -1,0 +1,59 @@
+:host ::ng-deep .p-inputtext,
+:host ::ng-deep .p-inputtextarea {
+  font-size: 1rem;
+  color: #374151 !important; 
+  background-color: white !important;
+  border: 1px solid #d1d5db !important;
+}
+
+:host ::ng-deep .p-inputtext:enabled:hover,
+:host ::ng-deep .p-inputtextarea:enabled:hover {
+  border-color: #4f46e5 !important;
+  color: #374151 !important; 
+}
+
+:host ::ng-deep .p-inputtext:enabled:focus,
+:host ::ng-deep .p-inputtextarea:enabled:focus {
+  border-color: #4f46e5 !important;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2) !important;
+  color: #374151 !important; 
+}
+:host ::ng-deep .p-button.p-button-secondary {
+  background-color: #f3f4f6 !important;
+  border: 1px solid #d1d5db !important;
+  color: #374151 !important;
+}
+
+:host ::ng-deep .p-button.p-button-secondary:hover {
+  background-color: #e5e7eb !important;
+  border-color: #d1d5db !important;
+  color: #374151 !important;
+}
+
+:host ::ng-deep .p-button.p-button-secondary .p-button-label {
+  color: inherit !important; 
+}
+
+:host ::ng-deep .p-button.p-button-success {
+  background-color: #4f46e5 !important;
+  border: none !important;
+  color: white !important;
+}
+
+:host ::ng-deep .p-button.p-button-success:hover {
+  background-color: #4338ca !important;
+  color: white !important;
+}
+
+:host ::ng-deep .p-button.p-button-success .p-button-label {
+  color: inherit !important;
+}
+
+:host ::ng-deep .p-error {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.field {
+  width: 100%;
+}

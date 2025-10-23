@@ -49,7 +49,7 @@ export class ProductosFormComponent implements OnInit {
     if (id) {
       this.isEditMode = true;
       this.productId = +id;
-      console.warn('Modo Edición: Endpoint de actualización no implementado en el backend.');
+      console.warn('Endpoint de actualizacion no implementado en el backend.');
     }
   }
 
@@ -60,7 +60,7 @@ export class ProductosFormComponent implements OnInit {
     }
 
     if (this.isEditMode && this.productId) {
-      this.messageService.add({ severity: 'warn', summary: 'Pendiente', detail: 'La función de editar no está implementada en el backend.' });
+      this.messageService.add({ severity: 'warn', summary: 'Pendiente', detail: 'La funcion editar no esta disponible' });
     } else {
       this.apiService.postItem('productos', this.productForm.value).subscribe({
         next: () => {
