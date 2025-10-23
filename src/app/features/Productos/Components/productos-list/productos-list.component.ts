@@ -2,21 +2,21 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { PLATFORM_ID } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table'; 
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext'; 
+import { TagModule } from 'primeng/tag'; 
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 import { ApiService } from '../../../../core/services/api.service';
-
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Producto } from '../../Models/Producto.model';
 
 @Component({
@@ -25,10 +25,10 @@ import { Producto } from '../../Models/Producto.model';
   imports: [
     CommonModule, ReactiveFormsModule, FormsModule, TableModule, ButtonModule,
     ToolbarModule, TooltipModule, DialogModule, InputNumberModule,
-    ToastModule, ConfirmDialogModule
+    ToastModule, ConfirmDialogModule, InputTextModule, TagModule 
   ],
   templateUrl: './productos-list.component.html',
-  styleUrls: ['./productos-list.component.css'],
+  styleUrls: ['./productos-list.component.css'], 
   providers: [MessageService, ConfirmationService]
 })
 export class ProductosListComponent implements OnInit {
@@ -52,7 +52,7 @@ export class ProductosListComponent implements OnInit {
     private confirmationService: ConfirmationService
   ) {
     this.cantidadForm = this.fb.group({
-      cantidad: [1, [Validators.required, Validators.min(1)]] // Valor por defecto 1
+      cantidad: [1, [Validators.required, Validators.min(1)]]
     });
   }
 
@@ -77,9 +77,14 @@ export class ProductosListComponent implements OnInit {
     });
   }
 
+  onSearch(table: Table, event: Event): void {
+    const inputValue = (event.target as HTMLInputElement).value;
+    table.filterGlobal(inputValue, 'contains');
+  }
+
   confirmarBaja(producto: Producto): void {
     this.confirmationService.confirm({
-      message: `¿Estás seguro de que quieres dar de baja el producto "${producto.nombre}"?`,
+      message: `¿Estas seguro que quieres dar de baja el producto "${producto.nombre}"?`,
       header: 'Confirmar Baja', icon: 'pi pi-exclamation-triangle',
       accept: () => this.darBaja(producto.id_producto),
     });
@@ -91,7 +96,7 @@ export class ProductosListComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Producto dado de baja.' });
         this.cargarProductos();
       },
-      error: (err) => this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.mensaje || 'Ocurrió un error.' })
+      error: (err) => this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.mensaje || 'Ocurrio un error.' })
     });
   }
 
@@ -101,7 +106,7 @@ export class ProductosListComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Producto reactivado.' });
         this.cargarProductos();
       },
-      error: (err) => this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.mensaje || 'Ocurrió un error.' })
+      error: (err) => this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.mensaje || 'Ocurrio un error.' })
     });
   }
 
@@ -121,26 +126,14 @@ export class ProductosListComponent implements OnInit {
 
   gestionarInventario(): void {
     if (!this.cantidadInput || this.cantidadInput < 1 || !this.productoSeleccionado || !this.accionInventario) {
-      console.log('Datos inválidos:', {
-        cantidad: this.cantidadInput,
-        producto: this.productoSeleccionado,
-        accion: this.accionInventario
-      });
       return;
     }
 
     const id = this.productoSeleccionado.id_producto;
     const data = { cantidad: this.cantidadInput };
     
-    console.log('Enviando datos:', {
-      modulo: 'productos',
-      data: data,
-      accion: `${id}/${this.accionInventario}`
-    });
-
     this.apiService.postItem('productos', data, `${id}/${this.accionInventario}`).subscribe({
       next: (response) => {
-        console.log('Respuesta exitosa:', response);
         this.messageService.add({ 
           severity: 'success', 
           summary: 'Éxito', 
@@ -150,11 +143,10 @@ export class ProductosListComponent implements OnInit {
         this.cargarProductos();
       },
       error: (err) => {
-        console.error('Error en la petición:', err);
         this.messageService.add({ 
           severity: 'error', 
           summary: 'Error', 
-          detail: err.error?.mensaje || 'Ocurrió un error al actualizar el inventario.' 
+          detail: err.error?.mensaje || 'Ocurrio un error al actualizar el inventario.' 
         });
       }
     });
