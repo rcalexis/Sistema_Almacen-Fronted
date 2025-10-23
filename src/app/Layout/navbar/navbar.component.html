@@ -1,0 +1,81 @@
+<nav class="navbar bg-white shadow-sm border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+
+      <div class="flex items-center space-x-3">
+        <div class="flex-shrink-0">
+          <i class="pi pi-warehouse text-2xl text-blue-600"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800">Sistema Almacen</span>
+      </div>
+
+ 
+      <div class="hidden md:flex items-center space-x-1">
+        <a 
+          *ngFor="let item of menuItems"
+          [routerLink]="item.routerLink"
+          routerLinkActive="bg-blue-50 text-blue-600 border-blue-600"
+          class="nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-blue-50 hover:text-blue-500 flex items-center space-x-2"
+        >
+          <i [class]="item.icon"></i>
+          <span>{{ item.label }}</span>
+        </a>
+      </div>
+
+   
+      <div class="hidden md:flex items-center space-x-4">
+     
+        <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+          <i class="pi pi-user mr-1"></i>
+          {{ usuarioRol === 1 ? 'Administrador' : 'Almacenista' }}
+        </span>
+        
+        <button 
+          pButton 
+          icon="pi pi-sign-out" 
+          label="Cerrar Sesión" 
+          class="p-button-outlined p-button-sm p-button-danger"
+          (click)="cerrarSesion()">
+        </button>
+      </div>
+
+
+      <div class="md:hidden flex items-center space-x-2">
+    
+        <span class="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded-full">
+          <i class="pi pi-user mr-1"></i>
+          {{ usuarioRol === 1 ? 'Admin' : 'Almacen' }}
+        </span>
+        
+        <button 
+          type="button" 
+          class="mobile-menu-button p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          (click)="toggleMobileMenu()">
+          <i class="pi pi-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+
+    <div *ngIf="isMobileMenuOpen" class="md:hidden mobile-menu bg-white border-t border-gray-200 py-2">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a 
+          *ngFor="let item of menuItems"
+          [routerLink]="item.routerLink"
+          routerLinkActive="bg-blue-50 text-blue-600"
+          class="block px-3 py-3 rounded-lg text-base font-medium hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-3"
+          (click)="closeMobileMenu()"
+        >
+          <i [class]="item.icon + ' text-lg'"></i>
+          <span>{{ item.label }}</span>
+        </a>
+        <button 
+          class="w-full text-left px-3 py-3 rounded-lg text-base font-medium text-red-600 hover:bg-red-50 transition-colors duration-200 flex items-center space-x-3 mt-2"
+          (click)="cerrarSesion(); closeMobileMenu()">
+          <i class="pi pi-sign-out text-lg"></i>
+          <span>Cerrar Sesion</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
