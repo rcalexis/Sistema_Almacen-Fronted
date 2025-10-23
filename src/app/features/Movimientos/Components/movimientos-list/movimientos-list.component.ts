@@ -3,16 +3,15 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-// --- PrimeNG Modules ---
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table'; 
 import { ToolbarModule } from 'primeng/toolbar';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
-import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext'; 
+import { MessageService } from 'primeng/api';
 
-// --- Tus Servicios y Modelos ---
 import { ApiService } from '../../../../core/services/api.service';
 import { Movimiento } from '../../Models/Movimiento.model';
 
@@ -21,19 +20,20 @@ import { Movimiento } from '../../Models/Movimiento.model';
   standalone: true,
   imports: [
     CommonModule, FormsModule, TableModule, ToolbarModule,
-    ToastModule, DropdownModule, TagModule, ButtonModule
+    ToastModule, DropdownModule, TagModule, ButtonModule,
+    InputTextModule 
   ],
   templateUrl: './movimientos-list.component.html',
-  styleUrls: ['./movimientos-list.component.css'],
+  styleUrls: ['./movimientos-list.component.css'], 
   providers: [MessageService]
 })
 export class MovimientosListComponent implements OnInit {
   movimientos: Movimiento[] = [];
   usuarioRol: string = '';
   opcionesFiltro = [
-    { label: 'Todos los Movimientos', value: '' },
-    { label: 'Solo Entradas', value: 'entrada' },
-    { label: 'Solo Salidas', value: 'salida' }
+    { label: 'Todos', value: '' },
+    { label: 'Entradas', value: 'entrada' },
+    { label: 'Salidas', value: 'salida' }
   ];
   filtroSeleccionado: string = '';
   private platformId = inject(PLATFORM_ID);
@@ -58,9 +58,7 @@ export class MovimientosListComponent implements OnInit {
     const params = this.filtroSeleccionado ? { tipo_movimiento: this.filtroSeleccionado } : {};
     
     this.apiService.getItems('movimientos', '', params).subscribe({
-      next: (data) => {
-        this.movimientos = data;
-      },
+      next: (data) => { this.movimientos = data; },
       error: (err) => {
         this.messageService.add({
           severity: 'error',
@@ -70,8 +68,14 @@ export class MovimientosListComponent implements OnInit {
       }
     });
   }
+  
 
-  getSeverity(tipo: string): string {
+  onSearch(table: Table, event: Event): void {
+    const inputValue = (event.target as HTMLInputElement).value;
+    table.filterGlobal(inputValue, 'contains');
+  }
+
+  getSeverity(tipo: string): 'success' | 'warning' {
     return tipo === 'entrada' ? 'success' : 'warning';
   }
 }

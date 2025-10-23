@@ -1,48 +1,83 @@
 <p-toast></p-toast>
-<div class="card m-4">
-  <p-toolbar>
-    <div class="p-toolbar-group-start">
-      <h2 class="text-2xl font-bold text-gray-700">Historial de Movimientos</h2>
-    </div>
-    
-    <div class="p-toolbar-group-end" *ngIf="usuarioRol === 'Administrador'">
-      <p-dropdown 
-        [options]="opcionesFiltro" 
-        [(ngModel)]="filtroSeleccionado" 
-        placeholder="Filtrar por tipo"
-        (onChange)="cargarMovimientos()">
-      </p-dropdown>
-    </div>
-  </p-toolbar>
 
-  <p-table [value]="movimientos" [paginator]="true" [rows]="10" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Producto</th>
-        <th>Usuario</th>
-        <th class="text-center">Tipo</th>
-        <th class="text-center">Cantidad</th>
-        <th>Fecha</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-movimiento>
-      <tr>
-        <td>{{ movimiento.nombre_producto }}</td>
-        <td>{{ movimiento.nombre_usuario }}</td>
-        <td class="text-center">
-          <p-tag [severity]="getSeverity(movimiento.tipo_movimiento)" [value]="movimiento.tipo_movimiento"></p-tag>
-        </td>
-        <td class="text-center font-bold" 
-            [ngClass]="{'text-green-600': movimiento.tipo_movimiento === 'entrada', 'text-orange-600': movimiento.tipo_movimiento === 'salida'}">
-          {{ movimiento.tipo_movimiento === 'entrada' ? '+' : '-' }}{{ movimiento.cantidad }}
-        </td>
-        <td>{{ movimiento.fecha_movimiento | date:'dd/MM/yyyy h:mm a' }}</td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="emptymessage">
-      <tr>
-        <td colspan="5" class="text-center p-4">No se encontraron movimientos.</td>
-      </tr>
-    </ng-template>
-  </p-table>
+<div class="p-4 sm:p-6 lg:p-8">
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    
+    <div class="px-6 py-5 flex flex-wrap justify-between items-end gap-4 border-b border-gray-200">
+      
+      <div class="flex flex-col gap-3">
+        <h2 class="text-2xl font-bold text-gray-800">
+          <i class="pi pi-history mr-2"></i>Historial de Movimientos
+        </h2>
+        <p class="text-sm text-gray-500">Consulta el historial de entradas y salidas de inventario.</p>
+      </div>
+      
+      <div class="flex items-center gap-2">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input 
+            pInputText 
+            type="text" 
+            (input)="onSearch(movimientosTable, $event)" 
+            placeholder="Buscar producto o usuario..."
+            class="p-inputtext-sm modern-search" 
+          />
+        </span>
+
+        <p-dropdown 
+          *ngIf="usuarioRol === 'Administrador'"
+          [options]="opcionesFiltro" 
+          [(ngModel)]="filtroSeleccionado" 
+          (onChange)="cargarMovimientos()">
+        </p-dropdown>
+      </div>
+    </div>
+
+    <p-table 
+      #movimientosTable
+      [value]="movimientos" 
+      [paginator]="true" 
+      [rows]="10" 
+      styleClass="p-datatable-striped" 
+      [tableStyle]="{'min-width': '50rem'}"
+      [globalFilterFields]="['nombre_producto', 'nombre_usuario']"> 
+      
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="p-4 text-left text-sm font-semibold text-white bg-gray-800">Producto</th>
+          <th class="p-4 text-left text-sm font-semibold text-white bg-gray-800">Usuario</th>
+          <th class="p-4 text-center text-sm font-semibold text-white bg-gray-800">Tipo</th>
+          <th class="p-4 text-center text-sm font-semibold text-white bg-gray-800">Cantidad</th>
+          <th class="p-4 text-left text-sm font-semibold text-white bg-gray-800">Fecha</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-movimiento>
+        <tr>
+          <td class="p-4 whitespace-nowrap text-sm text-gray-800">{{ movimiento.nombre_producto }}</td>
+          <td class="p-4 whitespace-nowrap text-sm text-gray-800">{{ movimiento.nombre_usuario }}</td>
+          <td class="p-4 whitespace-nowrap text-center">
+            <p-tag [severity]="getSeverity(movimiento.tipo_movimiento)" [value]="movimiento.tipo_movimiento | titlecase"></p-tag>
+          </td>
+          <td class="p-4 whitespace-nowrap text-center font-bold" 
+              [ngClass]="{'text-green-600': movimiento.tipo_movimiento === 'entrada', 'text-orange-600': movimiento.tipo_movimiento === 'salida'}">
+            {{ movimiento.tipo_movimiento === 'entrada' ? '+' : '-' }}{{ movimiento.cantidad }}
+          </td>
+          <td class="p-4 whitespace-nowrap text-sm text-gray-800">{{ movimiento.fecha_movimiento | date:'dd/MM/yyyy' }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5" class="text-center p-8">
+            <div class="flex flex-col items-center justify-center text-gray-500">
+              <i class="pi pi-inbox text-5xl mb-3"></i>
+              <span class="font-bold">No se encontraron movimientos.</span>
+              <span>Intenta mas tarde</span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
