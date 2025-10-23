@@ -1,0 +1,86 @@
+:host ::ng-deep .p-inputtext,
+:host ::ng-deep .p-inputtextarea,
+:host ::ng-deep .p-dropdown .p-dropdown-label,
+:host ::ng-deep .p-password-input {
+  font-size: 1rem;
+  color: #374151 !important; 
+  background-color: white !important;
+}
+
+:host ::ng-deep .p-inputtext:enabled:hover,
+:host ::ng-deep .p-inputtextarea:enabled:hover,
+:host ::ng-deep .p-dropdown:not(.p-disabled):hover {
+  border-color: #4f46e5 !important;
+}
+
+:host ::ng-deep .p-inputtext:enabled:focus,
+:host ::ng-deep .p-inputtextarea:enabled:focus,
+:host ::ng-deep .p-dropdown:not(.p-disabled).p-focus,
+:host ::ng-deep .p-password-input:focus {
+  border-color: #4f46e5 !important;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2) !important;
+}
+
+:host ::ng-deep .p-password .p-inputwrapper {
+  width: 100%;
+}
+
+:host ::ng-deep .p-password-input {
+    width: 100%;
+}
+
+:host ::ng-deep .p-dropdown {
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.5rem; 
+}
+
+:host ::ng-deep .p-error {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.field {
+  width: 100%;
+}
+
+:host ::ng-deep .p-toast-message {
+  border-radius: 0.5rem !important; 
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important; 
+  border: none !important;
+}
+
+
+:host ::ng-deep .p-toast-message.p-toast-message-success {
+    background: #dcfce7 !important; 
+    border-left: 5px solid #22c55e !important; 
+}
+
+:host ::ng-deep .p-toast-message-success .p-toast-message-icon,
+:host ::ng-deep .p-toast-message-success .p-toast-close-icon {
+    color: #22c55e !important; 
+}
+
+:host ::ng-deep .p-toast-message.p-toast-message-error {
+    background: #fee2e2 !important; 
+    border-left: 5px solid #ef4444 !important;
+}
+
+
+:host ::ng-deep .p-toast-message-error .p-toast-message-icon,
+:host ::ng-deep .p-toast-message-error .p-toast-close-icon {
+    color: #ef4444 !important; 
+}
+
+
+
+:host ::ng-deep .p-toast-message .p-toast-summary {
+  color: #1f2937;    
+  font-weight: 700;  
+}
+
+
+:host ::ng-deep .p-toast-message .p-toast-detail {
+  color: #374151;   
+  font-weight: 400; 
+  margin-top: 2px;
+}

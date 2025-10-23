@@ -1,0 +1,110 @@
+<div class="min-h-screen bg-gradient-to-r from-indigo-50 to-purple-50 flex items-center justify-center p-6">
+  <p-toast></p-toast>
+
+  <div class="max-w-2xl w-full bg-white p-8 rounded-xl shadow-xl border border-gray-200">
+    
+    <h2 class="text-3xl font-extrabold text-gray-800 mb-6 text-center">
+      <i class="pi pi-user mr-2 text-indigo-500"></i>
+      {{ isEditMode ? 'Editar Usuario' : 'Crear Nuevo Usuario' }}
+    </h2>
+
+    <p class="text-center text-gray-500 mb-8">
+      Completa los campos para {{ isEditMode ? 'editar' : 'crear' }} un usuario.
+    </p>
+
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+      <div class="space-y-6">
+
+        <div class="field">
+          <label for="nombre" class="block mb-2 font-semibold text-gray-700">Nombre del Usuario</label>
+          <input
+            id="nombre"
+            type="text"
+            pInputText
+            formControlName="nombre"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-200 bg-white"
+            placeholder="Ej: Juan Pérez"
+          />
+          <small *ngIf="usuarioForm.get('nombre')?.touched && usuarioForm.get('nombre')?.invalid" class="p-error block mt-1">
+            El nombre es requerido.
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="correo" class="block mb-2 font-semibold text-gray-700">Correo Electrónico</label>
+          <input
+            id="correo"
+            type="email"
+            pInputText
+            formControlName="correo"
+            class="w-full p-3 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-200 bg-white"
+            placeholder="Ej: correo@ejemplo.com"
+          />
+          <small *ngIf="usuarioForm.get('correo')?.touched && usuarioForm.get('correo')?.errors?.['required']" class="p-error block mt-1">
+            El correo es requerido.
+          </small>
+          <small *ngIf="usuarioForm.get('correo')?.touched && usuarioForm.get('correo')?.errors?.['email']" class="p-error block mt-1">
+            Formato de correo inválido.
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="contrasena" class="block mb-2 font-semibold text-gray-700">Contraseña</label>
+          <p-password 
+            id="contrasena" 
+            formControlName="contrasena" 
+            [feedback]="false" 
+            [toggleMask]="true" 
+            styleClass="w-full"
+            inputStyleClass="w-full p-3 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-200 bg-white"
+            placeholder="••••••"
+          ></p-password>
+          <small *ngIf="!isEditMode" class="text-xs text-gray-500 mt-1 block">Mínimo 6 caracteres.</small>
+          <small *ngIf="isEditMode" class="text-xs text-gray-500 mt-1 block">Dejar en blanco para no cambiar.</small>
+          <small *ngIf="usuarioForm.get('contrasena')?.touched && usuarioForm.get('contrasena')?.errors?.['required']" class="p-error block mt-1">
+            La contraseña es requerida.
+          </small>
+           <small *ngIf="usuarioForm.get('contrasena')?.touched && usuarioForm.get('contrasena')?.errors?.['minlength']" class="p-error block mt-1">
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="id_rol" class="block mb-2 font-semibold text-gray-700">Rol</label>
+          <p-dropdown 
+            id="id_rol" 
+            [options]="roles" 
+            formControlName="id_rol" 
+            placeholder="Selecciona un rol" 
+            optionLabel="label" 
+            optionValue="value"
+            styleClass="w-full"
+          ></p-dropdown>
+          <small *ngIf="usuarioForm.get('id_rol')?.touched && usuarioForm.get('id_rol')?.invalid" class="p-error block mt-1">
+            El rol es requerido.
+          </small>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-4 mt-8">
+        <button
+          type="button"
+          class="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg border border-gray-300 hover:bg-gray-200 transition duration-200"
+          (click)="cancelar()"
+        >
+          <i class="pi pi-times"></i>
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-200 disabled:bg-indigo-300 disabled:cursor-not-allowed"
+          [disabled]="usuarioForm.invalid"
+        >
+          <i class="pi pi-check"></i>
+          {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
