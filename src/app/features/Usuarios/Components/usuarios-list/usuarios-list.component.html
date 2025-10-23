@@ -1,0 +1,80 @@
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<div class="p-4 sm:p-6 lg:p-8">
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    
+    <div class="px-6 py-5 flex flex-wrap justify-between items-end gap-4 border-b border-gray-200">
+      
+      <div class="flex flex-col gap-3">
+        <h2 class="text-2xl font-bold text-gray-800">
+          <i class="pi pi-users mr-2"></i>Lista de Usuarios
+        </h2>
+        <p class="text-sm text-gray-500">Administra los usuarios del sistema.</p>
+        <button pButton pRipple label="Nuevo Usuario" icon="pi pi-plus" class="p-button-success"  (click)="crearUsuario()"></button>
+      </div>
+      
+      <div class="flex items-center">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input 
+            pInputText 
+            type="text" 
+            (input)="onSearch(userTable, $event)" 
+            placeholder="Buscar..."
+            class="p-inputtext-sm modern-search" 
+          />
+        </span>
+      </div>
+    </div>
+
+    <p-table 
+      #userTable 
+      [value]="usuarios" 
+      [paginator]="true" 
+      [rows]="10" 
+      styleClass="p-datatable-striped" 
+      [tableStyle]="{'min-width': '50rem'}"
+      [globalFilterFields]="['nombre', 'correo']"> 
+      
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="p-4 text-left text-sm font-semibold text-white bg-gray-800">Nombre</th>
+          <th class="p-4 text-left text-sm font-semibold text-white bg-gray-800">Correo</th>
+          <th class="p-4 text-center text-sm font-semibold text-white bg-gray-800">Estatus</th>
+          <th class="p-4 text-center text-sm font-semibold text-white bg-gray-800">Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-usuario>
+        <tr>
+          <td class="p-4 whitespace-nowrap text-sm text-gray-800">{{ usuario.nombre }}</td>
+          <td class="p-4 whitespace-nowrap text-sm text-gray-800">{{ usuario.correo }}</td>
+          <td class="p-4 whitespace-nowrap text-center">
+            <p-tag 
+              [severity]="usuario.estatus ? 'success' : 'danger'" 
+              [value]="usuario.estatus ? 'Activo' : 'Inactivo'">
+            </p-tag>
+          </td>
+          <td class="p-4 whitespace-nowrap">
+            <div class="flex items-center justify-center gap-2">
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info" (click)="editarUsuario(usuario.id_usuario)" pTooltip="Editar"></button>
+              <button *ngIf="usuario.estatus" pButton pRipple icon="pi pi-arrow-down" class="p-button-rounded p-button-warning" (click)="confirmarBaja(usuario)" pTooltip="Dar de Baja"></button>
+              <button *ngIf="!usuario.estatus" pButton pRipple icon="pi pi-arrow-up" class="p-button-rounded p-button-success" (click)="reactivarUsuario(usuario.id_usuario)" pTooltip="Reactivar"></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="4" class="text-center p-8">
+            <div class="flex flex-col items-center justify-center text-gray-500">
+              <i class="pi pi-inbox text-5xl mb-3"></i>
+              <span class="font-bold">No se encontraron usuarios.</span>
+              <span>Intenta mas tarde </span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

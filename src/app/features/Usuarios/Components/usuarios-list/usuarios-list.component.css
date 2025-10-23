@@ -1,0 +1,92 @@
+
+:host ::ng-deep .p-toolbar {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+:host ::ng-deep .p-datatable {
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background-color: #1f2937; 
+  color: #ffffff;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+  background-color: #ffffff;
+  color: #374151;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+  background-color: #f9fafb; 
+}
+
+
+:host ::ng-deep .modern-search.p-inputtext {
+  background-color: #f3f4f6; 
+  border-radius: 9999px;     
+  border: 2px solid transparent;
+  padding-left: 2.5rem;
+  font-weight: 500;
+  color: #374151; 
+  transition: all 0.2s ease-in-out;
+}
+
+:host ::ng-deep .modern-search.p-inputtext:focus {
+  background-color: #ffffff;
+  border-color: #4f46e5; 
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+:host ::ng-deep .p-input-icon-left > i {
+  color: #6b7280; 
+  left: 1rem;
+  transition: color 0.2s ease-in-out;
+}
+
+:host ::ng-deep .modern-search.p-inputtext:focus ~ i {
+  color: #4f46e5; 
+}
+
+:host ::ng-deep .p-paginator {
+  background-color: #1f2937;
+  color: #ffffff;
+  border-top: 1px solid #374151;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page {
+  color: #ffffff;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background-color: #4f46e5;
+  color: #ffffff;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
+  background-color: #374151;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-icon {
+  color: #ffffff;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-next.p-disabled,
+:host ::ng-deep .p-paginator .p-paginator-prev.p-disabled {
+  opacity: 0.5;
+}
+
+
+:host ::ng-deep .p-toast-message .p-toast-summary {
+  color: #1f2937; 
+  font-weight: 700; 
+}
+
+:host ::ng-deep .p-toast-message .p-toast-detail {
+  color: #4b5563; 
+  font-weight: 500;
+}
